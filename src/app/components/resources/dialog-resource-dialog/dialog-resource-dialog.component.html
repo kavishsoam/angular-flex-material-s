@@ -1,0 +1,48 @@
+<h1 mat-dialog-title>Add Resource Group</h1>
+<div mat-dialog-content>
+  <div>
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Resource Grop Name</mat-label>
+      <input matInput placeholder="Placeholder" [(ngModel)]="data.title">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div style="width: 48%;">
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Customer Capacity</mat-label>
+        <input matInput type="number" placeholder="Placeholder" [(ngModel)]="data.capacity">
+      </mat-form-field>
+    </div>
+    <div style="width: 50%;">
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Extra Cost</mat-label>
+        <input matInput type="number" placeholder="Placeholder" [(ngModel)]="data.cost">
+      </mat-form-field>
+    </div>
+  </div>
+  <div>
+    <label>Location</label>
+    <div fxLayout="column" fxLayoutAlign="start start">
+      <div>
+        <mat-checkbox class="example-margin" [(ngModel)]="data.Kalgoorlie" [labelPosition]="'before'">
+          Kalgoorlie
+        </mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox class="example-margin" [(ngModel)]="data.Mandurah" [labelPosition]="'before'">
+          Mandurah
+        </mat-checkbox>
+      </div>
+      <div>
+        <mat-checkbox class="example-margin" [(ngModel)]="data.Busselton" [labelPosition]="'before'">
+          Busselton
+        </mat-checkbox>
+      </div>
+
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Add</button>
+</div>

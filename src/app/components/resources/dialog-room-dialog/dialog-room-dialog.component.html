@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>{{data.edit ? 'Edit' :'Add'}} Room</h1>
+<div mat-dialog-content>
+  <div>
+    <mat-form-field appearance="outline" style="width: 100%;">
+      <mat-label>Room Name</mat-label>
+      <input matInput placeholder="Placeholder" [(ngModel)]="data.name">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <div style="width: 48%;">
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Customer Capacity</mat-label>
+        <input matInput type="number" placeholder="Placeholder" [(ngModel)]="data.available">
+      </mat-form-field>
+    </div>
+    <div style="width: 50%;">
+      <mat-form-field appearance="outline" style="width: 100%;">
+        <mat-label>Extra Cost</mat-label>
+        <input matInput type="number" placeholder="Placeholder" [(ngModel)]="data.cost">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data" *ngIf="!data.edit" cdkFocusInitial>Add</button>
+  <button mat-button [mat-dialog-close]="data" *ngIf="data.edit" cdkFocusInitial>Edit</button>
+</div>

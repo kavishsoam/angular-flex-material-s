@@ -1,0 +1,581 @@
+<div>
+
+  <section>
+    <div class="p-50">
+      <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px" class="margin-bottom-20">
+        <div fxFlex="70" class="border-block">
+          <div>
+            <h3>Sales</h3>
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="25">
+              <!-- <h6>Location</h6> -->
+              <mat-form-field appearance="fill">
+                <mat-label>Location</mat-label>
+                <mat-select name="location" [(ngModel)]="location">
+                  <mat-option *ngFor="let location of locations" [value]="location.value">
+                    {{location.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="25">
+              <!-- <h6>Views</h6> -->
+              <mat-form-field appearance="fill">
+                <mat-label>Views</mat-label>
+                <mat-select name="view" [(ngModel)]="view">
+                  <mat-option *ngFor="let view of views" [value]="view.value">
+                    {{view.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div fxFlex="25">
+              <!-- <h6>Range</h6> -->
+              <mat-form-field appearance="fill" *ngIf="view !== 2">
+                <mat-label name="range-picker" ngDefaultControl [(ngModel)]="range">Range</mat-label>
+                <mat-select name="range" [(ngModel)]="range" *ngIf="view === 1">
+                  <mat-option *ngFor="let location of monthPicker" [value]="location.value">
+                    {{location.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-select name="range" [(ngModel)]="range" *ngIf="view === 3">
+                  <mat-option *ngFor="let location of yearPicker" [value]="location.value">
+                    {{location.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="view === 2">
+                <input matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </div>
+            </div>
+            <div fxFlex="25">
+              <!-- <h6>Compare</h6> -->
+              <mat-form-field appearance="fill" *ngIf="view !== 2">
+                <mat-label>Compare</mat-label>
+                <mat-select name="compair" [(ngModel)]="compair" *ngIf="view === 1">
+                  <mat-option *ngFor="let location of monthPicker" [value]="location.value">
+                    {{location.viewValue}}
+                  </mat-option>
+                </mat-select>
+                <mat-select name="compair" [(ngModel)]="compair" *ngIf="view === 3">
+                  <mat-option *ngFor="let location of yearPicker" [value]="location.value">
+                    {{location.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div *ngIf="view === 2">
+                <input matInput [matDatepicker]="picker2">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+              </div>
+            </div>
+          </div>
+          <div>
+
+            <div id="chartdiv" style="width: 100%; height: 500px"></div>
+          </div>
+        </div>
+        <div fxFlex="30">
+
+          <div fxLayout="column" fxFlex fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="70" class="border-block" style="width:100%">
+              <div>
+                <h3>Marketing Source</h3>
+              </div>
+              <div id="marketingchart" style="width: 100%; height: 400px;"></div>
+
+
+            </div>
+
+            <div fxFlex="30" class="border-block" style="width:100%">
+              <div>
+                <h3>Current Cash in Drawer</h3>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayoutGap="20px">
+                <div class="border-right">
+                  <p class="font-blue">{{KargoorlieCahsDrower | currency}}</p>
+                  <div>Kargoorlie</div>
+                </div>
+                <div class="border-right">
+                  <p class="font-blue">{{BuseltonCahsDrower | currency}}</p>
+                  <div>Buselton</div>
+                </div>
+                <div>
+                  <p class="font-blue">{{MandurahCahsDrower | currency}}</p>
+                  <div>Mandurah</div>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="30px" class="border-block margin-bottom-20">
+        <div fxFlex="33">
+          <div>
+            <h3>Revenue</h3>
+          </div>
+          <div id="revenuechart" style="width: 100%; height: 400px;" class="border-right"></div>
+        </div>
+        <div fxFlex="33">
+          <div>
+            <h3>Services</h3>
+          </div>
+          <div id="servicechart" style="width: 100%; height: 400px;" class="border-right"></div>
+        </div>
+        <div fxFlex="33">
+          <div>
+            <h3>Products</h3>
+          </div>
+          <div id="productchart" style="width: 100%; height: 400px;"></div>
+        </div>
+      </div>
+
+
+      <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px" class="margin-bottom-20">
+        <div fxFlex="60">
+          <div fxLayout="column" fxFlex fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="100">
+              <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="30px">
+                <div fxFlex="50" class="border-block" style="width:100%">
+                  <div>
+                    <h3>Customer Gender</h3>
+                    <div>As of Month Selected</div>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="space-between stretch" class="margin-20">
+                    <div class="font-blue-dark">
+                      <mat-icon aria-hidden="false">fiber_manual_record</mat-icon>53% Male
+                    </div>
+                    <div class="font-blue">47% Female<mat-icon aria-hidden="false">fiber_manual_record</mat-icon>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="space-between stretch" class="margin-20">
+                    <mat-progress-bar mode="determinate" value="53"></mat-progress-bar>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="margin-20">
+                    <div>
+                      <div class="font-blue-dark">549</div>
+                      <div>Male</div>
+                    </div>
+                    <div>
+                      <div class="font-blue-dark">249</div>
+                      <div>Female</div>
+                    </div>
+
+
+                  </div>
+                </div>
+                <div fxFlex="50" class="border-block" style="width:100%">
+                  <div>
+                    <h3>New VS Return</h3>
+                    <div>As of Month Selected</div>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="space-between stretch" class="margin-20">
+                    <div class="font-blue-dark">
+                      <mat-icon aria-hidden="false">fiber_manual_record</mat-icon>77% Old
+                    </div>
+                    <div class="font-blue">33% New<mat-icon aria-hidden="false">fiber_manual_record</mat-icon>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="space-between stretch" class="margin-20">
+                    <mat-progress-bar mode="determinate" value="53"></mat-progress-bar>
+                  </div>
+                  <div fxLayout="row" fxLayoutAlign="space-evenly stretch" class="margin-20">
+                    <div>
+                      <div class="font-blue-dark">549</div>
+                      <div>Return</div>
+                    </div>
+                    <div>
+                      <div class="font-blue-dark">249</div>
+                      <div>New</div>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div fxFlex="100">
+              <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+                <div fxFlex="50" class="border-block" style="width:100%">
+                  <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                    <div>
+                      <h3>Paymment Methods</h3>
+                    </div>
+                    <div class="quetion-mark">?</div>
+                  </div>
+                  <div id="paymentchart" style="width: 100%; height: 300px;"></div>
+                </div>
+                <div fxFlex="50" class="border-block" style="width:100%">
+                  <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                    <h3>Profits</h3>
+                    <div class="quetion-mark">?</div>
+                  </div>
+                  <div id="profiltchart" style="width: 100%; height: 300px;"></div>
+                  <div class="font-blue text-center">{{'9321' | currency}}</div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+        </div>
+        <div fxFlex="40">
+          <div fxLayout="column" fxFlex fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="100" class="border-block" style="width:100%">
+              <div>
+                <h3>Top Spender Customer</h3>
+              </div>
+
+              <table class="table-main">
+                <thead>
+                  <tr>
+                    <td></td>
+                    <td>Name</td>
+                    <td>Spent</td>
+                    <td>Lat Session</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of topSpenderCustomer; let i = index">
+                    <td>{{i + 1}}</td>
+                    <td>{{item.name}}</td>
+                    <td>{{item.spent}}</td>
+                    <td>{{item.lastSession}} </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <button mat-button class="btn-more">Show More</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px" class="margin-bottom-20">
+        <div fxFlex="50" class="border-block" style="width:100%">
+          <div>
+            <h3>Average Waited Time</h3>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="30px">
+            <div fxFlex="20" class="border-right">
+              <p class="font-blue">{{'16 mins'}}</p>
+              <div>Average Waited Time</div>
+            </div>
+            <div fxFlex="80">
+              <table class="table-main">
+                <thead>
+                  <tr>
+                    <td></td>
+                    <td>Most waited customer</td>
+                    <td>Reference Number</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of averageWaitedTime; let i = index">
+                    <td>{{item.name}}</td>
+                    <td>{{item.time}} minuts</td>
+                    <td>{{item.refNumber}} </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <button mat-button class="btn-more">Show More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div fxFlex="50" class="border-block" style="width:100%">
+          <div>
+            <h3>Appointment Logs</h3>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="30px">
+            <div fxFlex="20" class="border-right">
+              <div class="border-bottom">
+                <div class="font-blue">{{'27'}}</div>
+                <div>No Show</div>
+              </div>
+              <div class="border-bottom">
+                <div class="font-blue">{{'17'}}</div>
+                <div>Cancelled</div>
+              </div>
+              <div class="border-bottom">
+                <div class="font-blue">{{'25'}}</div>
+                <div>Late</div>
+              </div>
+            </div>
+            <div fxFlex="40" class="border-right">
+              <table class="table-second">
+                <thead>
+                  <tr>
+                    <td></td>
+                    <td>Cancelled</td>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of appointmentCancelledLogs; let i = index">
+                    <td>{{item.name}}</td>
+                    <td>{{item.date}} {{item.time}}</td>
+
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <button mat-button class="btn-more">Show More</button>
+              </div>
+            </div>
+            <div fxFlex="40">
+              <table class="table-second">
+                <thead>
+                  <tr>
+                    <td></td>
+                    <td>No Show</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of appointmentNoShowLogs; let i = index">
+                    <td>{{item.name}}</td>
+                    <td>{{item.date}} {{item.time}}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center">
+                <button mat-button class="btn-more">Show More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px" class="margin-bottom-20">
+        <div fxFlex="35" class="border-block" style="max-width: 35% !important;;">
+          <div>
+            <h3>Overall Business Rating</h3>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="30">
+              <div class="font-blue text-center">{{'4.8'}}</div>
+              <div class="icon-blue text-center">
+                <mat-icon aria-hidden="false">star</mat-icon>
+                <mat-icon aria-hidden="false">star</mat-icon>
+                <mat-icon aria-hidden="false">star</mat-icon>
+                <mat-icon aria-hidden="false">star</mat-icon>
+                <mat-icon aria-hidden="false">star</mat-icon>
+              </div>
+              <div class="text-center">2800 Reviews</div>
+            </div>
+            <div fxFlex="70">
+              <div fxLayout="column">
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>5</div>
+                    <div style="width: 100%;" class="progress"></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>4</div>
+                    <div style="width: 10%;" class="progress"></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>3</div>
+                    <div style="width: 7%;" class="progress"></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>2</div>
+                    <div style="width: 5%;" class="progress"></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>1</div>
+                    <div style="width: 20%; background-color: #6778cf;" class="progress"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="100" style="width:100%">
+              <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                <div>
+                  <h3>Service Reviews</h3>
+                </div>
+                <div class="text-center">
+                  <button mat-button class="btn-sort">Sort</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="100" style="width:100%">
+              <div *ngFor="let item of overallBusinessRating; let i = index"
+                class="margin-bottom-20 service-review-block">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <div class="name-div" [ngStyle]="{'background-color': item.backgrountColor}">{{item.name.charAt(0)}}
+                  </div>
+                  <div>{{item.name}}</div>
+                </div>
+                <div class="icon-blue">
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 1">star</mat-icon>
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 2">star</mat-icon>
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 3">star</mat-icon>
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 4">star</mat-icon>
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 5">star</mat-icon>
+                </div>
+                <div>{{item.review}}</div>
+              </div>
+              <div class="text-center">
+                <button mat-button class="btn-more show-more-btn">Show More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div fxFlex="28" class="border-block" style="max-width: 28% !important;">
+          <div fxLayout="row" fxLayoutAlign="space-between stretch">
+            <div>
+              <h3>Top Therapists</h3>
+            </div>
+            <div class="text-center">
+              <button mat-button class="btn-sort">Sort</button>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="100" style="width:100%">
+              <div *ngFor="let item of topTherapists; let i = index"
+                class="margin-bottom-20 top-therapists-inner-block border-bottom">
+                <div fxLayout="row" fxLayoutAlign="start center" class="p-0">
+                  <div class="user-profile-block">
+                    <img src="./assets/images/default-user.jpg">
+                  </div>
+                  <div>
+                    <div>{{item.name}}</div>
+                    <div class="icon-blue">
+                      <mat-icon aria-hidden="false" *ngIf="item.count >= 1">star</mat-icon>
+                      <mat-icon aria-hidden="false" *ngIf="item.count >= 2">star</mat-icon>
+                      <mat-icon aria-hidden="false" *ngIf="item.count >= 3">star</mat-icon>
+                      <mat-icon aria-hidden="false" *ngIf="item.count >= 4">star</mat-icon>
+                      <mat-icon aria-hidden="false" *ngIf="item.count >= 5">star</mat-icon>
+                    </div>
+                    <div class="review-block">{{item.totalReview}} reviews</div>
+                  </div>
+                  <div class="madal-image-block">
+                    <img [src]="item.modelImg">
+                  </div>
+                </div>
+              </div>
+              <div class="text-center">
+                <button mat-button class="btn-more show-more-btn">Show More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div fxFlex="35" class="border-block" style="max-width: 35% !important;">
+          <div>
+            <h3>Therapists Rating</h3>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="30">
+              <div class="font-blue text-center">{{'4.8'}}</div>
+              <div class="icon-blue text-center">
+                <mat-icon aria-hidden="false">star</mat-icon>
+                <mat-icon aria-hidden="false">star</mat-icon>
+                <mat-icon aria-hidden="false">star</mat-icon>
+                <mat-icon aria-hidden="false">star</mat-icon>
+                <mat-icon aria-hidden="false">star</mat-icon>
+              </div>
+              <div class="text-center">2800 Reviews</div>
+            </div>
+            <div fxFlex="70">
+              <div fxLayout="column">
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>5</div>
+                    <div style="width: 100%;" class="progress"></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>4</div>
+                    <div style="width: 10%;" class="progress"></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>3</div>
+                    <div style="width: 7%;" class="progress"></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>2</div>
+                    <div style="width: 5%;" class="progress"></div>
+                  </div>
+                </div>
+                <div fxFlex="100">
+                  <div fxLayout="row">
+                    <div>1</div>
+                    <div style="width: 20%; background-color: #6778cf;" class="progress"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="100" style="width:100%">
+              <div fxLayout="row" fxLayoutAlign="space-between stretch">
+                <div>
+                  <h3>Service Reviews</h3>
+                </div>
+                <div class="text-center">
+                  <button mat-button class="btn-sort">Sort</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px">
+            <div fxFlex="100" style="width:100%">
+              <div *ngFor="let item of therapistsRating; let i = index" class="service-review-block">
+                <div fxLayout="row" fxLayoutAlign="start center">
+                  <div class="name-div" [ngStyle]="{'background-color': item.backgrountColor}">{{item.name.charAt(0)}}
+                  </div>
+                  <div>{{item.name}}</div>
+                </div>
+                <div class="icon-blue">
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 1">star</mat-icon>
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 2">star</mat-icon>
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 3">star</mat-icon>
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 4">star</mat-icon>
+                  <mat-icon aria-hidden="false" *ngIf="item.count >= 5">star</mat-icon>
+                </div>
+                <div>{{item.review}}</div>
+              </div>
+              <div class="text-center">
+                <button mat-button class="btn-more show-more-btn">Show More</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

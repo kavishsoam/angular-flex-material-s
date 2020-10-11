@@ -1,0 +1,39 @@
+<div id="mySidebar" class="sidebar">
+  <a id="username" fxLayout="row" fxLayoutAlign="end center">
+    <img src="../assets/images/default-user.jpg"> <span>Username</span>
+  </a>
+  <a class="closebtn" (click)="toggleNav()">&#9776; </a>
+  <a routerLink="" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+    <mat-icon aria-hidden="false">home</mat-icon> Home
+  </a>
+  <a href="#">
+    <mat-icon aria-hidden="false">calendar_today</mat-icon> Calender
+  </a>
+  <a href="#">
+    <mat-icon aria-hidden="false">account_balance</mat-icon> Sales
+  </a>
+  <a href="#">
+    <mat-icon aria-hidden="false">business_center</mat-icon> Clients
+  </a>
+  <a href="#">
+    <mat-icon aria-hidden="false">event_seat</mat-icon> Staff
+  </a>
+
+  <a href="#">
+    <mat-icon aria-hidden="false">layers</mat-icon> Services
+  </a>
+  <a routerLink="/resources" routerLinkActive="active">
+    <mat-icon aria-hidden="false">menu_open</mat-icon> Resources
+  </a>
+  <a href="#">
+    <mat-icon aria-hidden="false">graphic_eq</mat-icon> Anaytics
+  </a>
+  <a href="#">
+    <mat-icon aria-hidden="false">settings</mat-icon> Setup
+  </a>
+</div>
+
+<div id="main">
+  <app-header></app-header>
+  <router-outlet></router-outlet>
+</div>

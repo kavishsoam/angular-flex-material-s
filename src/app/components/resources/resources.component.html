@@ -1,0 +1,77 @@
+<div>
+
+  <section>
+    <div class="p-50">
+      <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px" class="margin-bottom-20">
+        <div class="border-block">
+          <h3>Resources</h3>
+        </div>
+        <div class="border-block">
+          <mat-form-field appearance="fill">
+            <mat-label>Location</mat-label>
+            <mat-select name="location" [(ngModel)]="location" (selectionChange)="onLocationChange()">
+              <mat-option *ngFor="let location of locations" [value]="location.value">
+                {{location.viewValue}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxFlex="100">
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel hideToggle *ngFor="let item of resourcesList">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{item.title}}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{item.room}}
+                  <mat-icon class="ml-50" (click)="openRoomDialog(item)">more_horiz</mat-icon>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <!-- <div> -->
+              <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let location of item.locations; let i = index">
+                <div fxFlex="100">
+                  <table style="width: 100%;" class="border-bottom">
+                    <thead class="font-bold">
+                      <tr>
+                        <td style="width: 50%;">{{location.name}}</td>
+                        <td class="text-center">Extra Cost</td>
+                        <td class="text-center">Available</td>
+                        <td class="text-center">Status</td>
+                      </tr>
+                    </thead>
+                    <tbody >
+                      <tr *ngFor="let data of location.values; let j = index">
+                        <td (click)="openRoomDialog(item, location, i, data, j)">Room #{{data.id}}</td>
+                        <td class="text-center">${{data.cost}}</td>
+                        <td class="text-center">{{data.available}} capability</td>
+                        <td class="text-center">{{status[data.status]}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- </div> -->
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+  <div class="fixedbutton">
+    <button mat-fab color="primary" class="hover-btn">
+      <mat-icon>folder</mat-icon>
+    </button>
+    <button mat-fab color="primary" class="hover-btn">
+      <mat-icon>insert_drive_file</mat-icon>
+    </button>
+    <button mat-fab color="primary" (click)="openDialog()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

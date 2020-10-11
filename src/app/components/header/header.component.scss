@@ -1,0 +1,25 @@
+.border-bottom {
+  border-bottom: 1px solid #565656;
+  padding: 14px;
+}
+
+.m-div {
+  font-size: 44px;
+  padding: 0 12px;
+  margin-right: 10px;
+  color: #fff;
+  background-color: #343a40;
+  width: fit-content;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+
+.ml-auto {
+  mat-icon {
+    font-size: 48px;
+    width: auto;
+  }
+}

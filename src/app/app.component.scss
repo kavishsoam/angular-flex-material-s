@@ -1,0 +1,112 @@
+/* The sidebar menu */
+.sidebar {
+  height: 100%;
+  /* 100% Full-height */
+  width: 90px;
+  /* 0 width - change this with JavaScript */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111;
+  /* Black*/
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding-top: 60px;
+  /* Place content 60px from the top */
+  transition: 0.5s;
+  /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #f1f1f1;
+
+  display: inline-flex;
+  transition: 0.3s;
+
+  mat-icon {
+    margin-right: 43px;
+    font-size: 38px;
+    margin-left: -10px;
+  }
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #818181;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  /* If you want a transition effect */
+  margin-left: 90px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+
+  .sidebar a {
+    font-size: 18px;
+  }
+}
+
+#username {
+  display: none;
+  position: absolute;
+  top: 0px;
+  right: 110px;
+  font-size: 22px;
+
+  img {
+    width: 50px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+
+  span {
+    font-size: 25px;
+    margin: 10px 0 0 10px;
+    float: right;
+  }
+}
+
+.active {
+  background-color: #068fe8;
+  width: 100%;
+}
