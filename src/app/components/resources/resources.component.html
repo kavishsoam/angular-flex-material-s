@@ -3,11 +3,11 @@
   <section>
     <div class="p-50">
       <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px" class="margin-bottom-20">
-        <div class="border-block">
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.md="80" fxFlex.lg="80" fxFlex.xl="80" class="border-block">
           <h3>Resources</h3>
         </div>
-        <div class="border-block">
-          <mat-form-field appearance="fill">
+        <div fxFlex="50" fxFlex.sm="50" fxFlex.md="20" fxFlex.lg="20" fxFlex.xl="20" class="border-block">
+          <mat-form-field appearance="fill" class="width-100">
             <mat-label>Location</mat-label>
             <mat-select name="location" [(ngModel)]="location" (selectionChange)="onLocationChange()">
               <mat-option *ngFor="let location of locations" [value]="location.value">
@@ -34,10 +34,10 @@
               <!-- <div> -->
               <div fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let location of item.locations; let i = index">
                 <div fxFlex="100">
-                  <table style="width: 100%;" class="border-bottom">
+                  <table class="border-bottom width-100">
                     <thead class="font-bold">
                       <tr>
-                        <td style="width: 50%;">{{location.name}}</td>
+                        <td class="width-50" data-name="location.name">{{location.name}}</td>
                         <td class="text-center">Extra Cost</td>
                         <td class="text-center">Available</td>
                         <td class="text-center">Status</td>

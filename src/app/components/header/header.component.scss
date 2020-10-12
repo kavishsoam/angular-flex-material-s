@@ -23,3 +23,11 @@
     width: auto;
   }
 }
+
+
+
+@media screen and (max-width: 599px) {
+  .header-name {
+    display: none;
+  }
+}
