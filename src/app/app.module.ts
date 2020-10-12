@@ -20,7 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ResourceModule } from './components/resources/resources.module';
-
+import { ReviewsModule } from './components/reviews/reviews.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +45,8 @@ import { ResourceModule } from './components/resources/resources.module';
     MatFormFieldModule,
     MatDialogModule,
     MatCheckboxModule,
-    ResourceModule
+    ResourceModule,
+    ReviewsModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]

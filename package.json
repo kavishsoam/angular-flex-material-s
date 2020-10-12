@@ -59,7 +59,7 @@
     "jspdf-autotable": "3.1.1",
     "lodash": "4.17.11",
     "mat-currency-format": "0.0.7",
-    "moment": "^2.24.0",
+    "moment": "^2.29.1",
     "moment-timezone": "0.5.23",
     "ng-connection-service": "1.0.4",
     "ng-pick-datetime": "7.0.0",
