@@ -130,9 +130,12 @@
                         <div>
                           {{item.therapistDetail}}
                         </div>
-                        <div><span><i class="material-icons pointer grey-text">thumb_up</i></span><span>{{item.therapistLike}}</span><span><i
-                              class="material-icons pointer grey-text">thumb_down</i></span><span>{{item.therapistDislike}}</span><span><i
-                              class="material-icons pointer grey-text">message</i></span><span>{{item.therapistMessage}}</span><span><i
+                        <div><span><i class="material-icons pointer grey-text"
+                              (click)="item.therapistLike = item.therapistLike +1">thumb_up</i></span><span>{{item.therapistLike}}</span><span><i
+                              class="material-icons pointer grey-text"
+                              (click)="item.therapistDislike = item.therapistDislike + 1">thumb_down</i></span><span>{{item.therapistDislike}}</span><span><i
+                              class="material-icons pointer grey-text"
+                              (click)="openCommentDialog(item, 'therapist')">message</i></span><span>{{item.therapistMessage}}</span><span><i
                               class="material-icons pointer grey-text">share</i></span><span>{{item.therapistShare}}</span>
                         </div>
                       </div>
