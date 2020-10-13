@@ -3,6 +3,8 @@ import * as _ from 'lodash';
 import * as Moment from 'moment';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCommentDialogComponent } from './dialog-comment-dialog/dialog-comment-dialog.component';
 
 
 @Component({
@@ -60,7 +62,18 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
       serviceName: 'Deep Tissue 1',
       duration: 30,
       cost: 100,
-      tips: 8
+      tips: 8,
+      replies: [
+        {
+          businessDetail: 'Thank you so much Tom Z',
+          businessLike: 3,
+          businessDislike: 5,
+          date: '10/4/2020',
+          name: 'Jay',
+          bgColor: 'grey',
+          replies: []
+        }
+      ]
     },
     {
       name: 'Mom Z',
@@ -85,7 +98,27 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
       serviceName: 'Deep Tissue 3',
       duration: 50,
       cost: 100,
-      tips: 14
+      tips: 14,
+      replies: [
+        {
+          businessDetail: 'Thank you so much Mom Z',
+          businessLike: 3,
+          businessDislike: 5,
+          date: '10/4/2020',
+          name: 'Jay',
+          bgColor: 'grey',
+          replies: []
+        },
+        {
+          businessDetail: 'Good work..Thank you so much Mom Z',
+          businessLike: 3,
+          businessDislike: 5,
+          date: '10/4/2020',
+          name: 'Sona',
+          bgColor: 'grey',
+          replies: []
+        }
+      ]
     },
     {
       name: 'Bom Z',
@@ -165,7 +198,7 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sortTable: MatSort;
   @ViewChild(MatSort) sortTable2: MatSort;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
   }
 
   ngOnInit() {
@@ -206,6 +239,20 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
         this.staff = this.allSatffSelected ? _.map(this.staffs, 'value') : [];
         break;
     }
+  }
+
+  openCommentDialog(item, type): void {
+    let data = {};
+    data = { item }
+    const dialogRef = this.dialog.open(DialogCommentDialogComponent, {
+      width: '40%',
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      console.log(result);
+    });
   }
 
 }

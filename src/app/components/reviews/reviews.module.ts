@@ -18,6 +18,7 @@ import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { DialogCommentDialogComponent } from './dialog-comment-dialog/dialog-comment-dialog.component';
 
 
 const routes = [
@@ -53,12 +54,15 @@ const routes = [
     MatTableModule
   ],
   declarations: [
-    ReviewsComponent
+    ReviewsComponent,
+    DialogCommentDialogComponent
   ],
   exports: [
-    ReviewsComponent
+    ReviewsComponent,
+    DialogCommentDialogComponent
   ],
   entryComponents: [
+    DialogCommentDialogComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA

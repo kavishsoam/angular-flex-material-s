@@ -1,0 +1,87 @@
+<div mat-dialog-title>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <div class="name-div" [ngStyle]="{'background-color': data.item.bgColor}">{{data.item.name.charAt(0)}}
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start start">
+      <div>{{data.item.name}} <span><i class="material-icons recommends">textsms</i></span> <span
+          class="font-15 grey-text">recommends</span> {{data.item.therapistName}}</div>
+      <div class="font-15 grey-text">{{moment(data.item.date, "MM/DD/YYYY").format("DD MMMM")}}</div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div fxLayout="column" fxLayoutAlign="space-around stretch">
+    <div>
+      <h3>{{data.item.businessDetail}}</h3>
+    </div>
+
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between  center" class=" mb-14">
+    <div>
+      <i class="material-icons green-text pointer">thumb_up</i>
+      <span class="grey-text">{{data.item.therapistName}}</span>
+    </div>
+    <div>
+      {{data.item.replies?.length || 0}} comments
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-between center" class="border">
+    <div>
+      <i class="material-icons grey-text pointer">thumb_up</i><span>Like</span>
+    </div>
+    <div>
+      <i class="material-icons grey-text pointer">thumb_down</i><span>Dislike</span>
+    </div>
+    <div (click)="data.item.comment = !data.item.comment">
+      <i class="material-icons grey-text pointer">message</i><span>Comment</span>
+    </div>
+    <div>
+      <div fxLayout="row" fxLayoutAlign="start center" class="width-100">
+        <div class="name-small-div" [ngStyle]="{'background-color': 'orange'}">
+          {{data.item.therapistName.charAt(0)}}
+        </div>
+        <i class="material-icons grey-text pointer">arrow_drop_down</i><span></span>
+      </div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="start center" class=" mb-14" *ngFor="let reply of data.item.replies">
+    <div>
+      <div class="name-div" [ngStyle]="{'background-color': reply.bgColor}">
+        {{reply.name.charAt(0)}}
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start start">
+      <div class="comment-box">
+        <h4 class="m-0">{{reply.name}}</h4>
+        <div>{{reply.businessDetail}}</div>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="30px">
+        <div class="grey-text">
+          Like
+        </div>
+        <div class="grey-text">
+          Reply
+        </div>
+        <div>
+          Commented by <span class="font-bold">{{reply.name}}</span>
+        </div>
+        <div class="grey-text">
+          <i class="material-icons">info_outline</i> {{moment(reply.date, "MM/DD/YYYY").fromNow(true)}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions *ngIf="data.item.comment">
+  <div fxLayout="row" fxLayoutAlign="start start" class="width-100">
+    <div class="name-div" [ngStyle]="{'background-color': 'orange'}">
+      {{data.item.therapistName.charAt(0)}}
+    </div>
+    <div fxFlex>
+      <mat-form-field appearance="outline" class="width-100">
+        <mat-label>{{'Comment as' + data.item.therapistName}}</mat-label>
+        <input matInput placeholder="Comment" [(ngModel)]="commnet" (keyup.enter)="addComment()">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
