@@ -9,7 +9,7 @@
       </div>
       <div fxLayout="row" fxLayoutAlign="space-between stretch" fxLayoutGap="30px" class="margin-bottom-20">
         <div fxFlex="100" fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100" fxFlex.xl="100" class="border-block">
-          <mat-tab-group>
+          <mat-tab-group (selectedIndexChange)="onTabSelect($event)">
             <mat-tab label="Review From Customer">
               <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="30px" fxLayoutGap.sm="0px"
                 fxLayoutGap.xs="0px" fxLayout.sm="column" fxLayout.xs="column">
@@ -40,9 +40,9 @@
                     </mat-form-field>
                   </div>
                 </div>
-                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="30px" fxLayoutGap.xs="0px"
+                <div fxLayout="row" fxLayoutAlign="space-between center"
                   fxLayout.xs="column">
-                  <div fxFlex="100" fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="border-block">
+                  <div fxFlex.sm="50" fxFlex.md="50" fxFlex.lg="50" fxFlex.xl="50" class="border-block">
                     <!-- <mat-form-field appearance="fill">
                       <mat-label>Time Range</mat-label>
                       <mat-date-range-input [rangePicker]="picker">
@@ -74,29 +74,173 @@
                 </div>
               </div>
               <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="30px" fxLayoutGap.xs="0px">
-                <table class="width-100 customer">
+                <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 customer" *ngIf="tabIndex === 0">
+
+                  <!-- Customer Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div>{{item.name}} </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Bussiness Rating Column -->
+                  <ng-container matColumnDef="bussinessRate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Bussiness Rating </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="column" fxLayoutAlign="start start">
+                        <div><i class="material-icons yellow-text"
+                            *ngFor="let dummy of ' '.repeat(item.bussinessRate).split(''), let x = index">star</i>
+                          <i class="material-icons yellow-text" *ngIf="item.bussinessRate  % 1 !== 0">star_half</i>
+                        </div>
+
+                        <div>
+                          {{item.businessDetail}}
+                        </div>
+
+                        <div><span><i class="material-icons grey-text">thumb_up</i></span><span>{{item.businessLike}}</span><span><i
+                              class="material-icons grey-text">thumb_down</i></span><span>{{item.businessDislike}}</span><span><i
+                              class="material-icons grey-text">message</i></span><span>{{item.businessMessage}}</span><span><i
+                              class="material-icons grey-text">share</i></span><span>{{item.businessShare}}</span>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Therapist Name Column -->
+                  <ng-container matColumnDef="therapistName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Therapist Name </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div>{{item.therapistName}} </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Therapist Rating Column -->
+                  <ng-container matColumnDef="therapistRate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Therapist Rating </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="column" fxLayoutAlign="start start">
+                        <div><i class="material-icons yellow-text"
+                            *ngFor="let dummy of ' '.repeat(item.therapistRate).split(''), let x = index">star</i>
+                          <i class="material-icons yellow-text" *ngIf="item.therapistRate  % 1 !== 0">star_half</i>
+                        </div>
+                        <div>
+                          {{item.therapistDetail}}
+                        </div>
+                        <div><span><i class="material-icons grey-text">thumb_up</i></span><span>{{item.therapistLike}}</span><span><i
+                              class="material-icons grey-text">thumb_down</i></span><span>{{item.therapistDislike}}</span><span><i
+                              class="material-icons grey-text">message</i></span><span>{{item.therapistMessage}}</span><span><i
+                              class="material-icons grey-text">share</i></span><span>{{item.therapistShare}}</span>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Skill Column -->
+                  <ng-container matColumnDef="skill">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Skill </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <div><i class="material-icons yellow-text"
+                            *ngFor="let dummy of ' '.repeat(item.skill).split(''), let x = index">star</i>
+                          <i class="material-icons yellow-text" *ngIf="item.skill  % 1 !== 0">star_half</i>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Communucation Column -->
+                  <ng-container matColumnDef="communication">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Communucation </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <div><i class="material-icons yellow-text"
+                            *ngFor="let dummy of ' '.repeat(item.communication).split(''), let x = index">star</i>
+                          <i class="material-icons yellow-text" *ngIf="item.communication  % 1 !== 0">star_half</i>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Attitude Column -->
+                  <ng-container matColumnDef="attitude">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Attitude </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <div><i class="material-icons yellow-text"
+                            *ngFor="let dummy of ' '.repeat(item.attitude).split(''), let x = index">star</i>
+                          <i class="material-icons yellow-text" *ngIf="item.attitude  % 1 !== 0">star_half</i>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Date Column -->
+                  <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div>{{item.date}} </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Service Name Column -->
+                  <ng-container matColumnDef="serviceName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Service Name </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div>{{item.serviceName}} </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Duration Column -->
+                  <ng-container matColumnDef="duration">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Duration </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div>{{item.duration}} mins</div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Cost Column -->
+                  <ng-container matColumnDef="cost">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Cost </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div>${{item.cost}} </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Tips Column -->
+                  <ng-container matColumnDef="tips">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tips </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div>${{item.tips}} </div>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+
+
+                <!-- <table class="width-100 customer" matSort (matSortChange)="sortData($event)">
                   <thead>
                     <tr>
-                      <th>Customer Name</th>
-                      <th>Bussiness Rating</th>
-                      <th>Therapist Name</th>
-                      <th>Therapist Rating</th>
-                      <th>Skill</th>
-                      <th>Communucation</th>
-                      <th>Attitude</th>
-                      <th>Date</th>
-                      <th>Service Name</th>
-                      <th>Duration</th>
-                      <th>Cost</th>
-                      <th>Tips</th>
+                      <th mat-sort-header="name">Customer Name</th>
+                      <th mat-sort-header="bussinessRate">Bussiness Rating</th>
+                      <th mat-sort-header="therapistName">Therapist Name</th>
+                      <th mat-sort-header="therapistRate">Therapist Rating</th>
+                      <th mat-sort-header="skill">Skill</th>
+                      <th mat-sort-header="communication">Communucation</th>
+                      <th mat-sort-header="attitude">Attitude</th>
+                      <th mat-sort-header="date">Date</th>
+                      <th mat-sort-header="serviceName">Service Name</th>
+                      <th mat-sort-header="duration">Duration</th>
+                      <th mat-sort-header="cost">Cost</th>
+                      <th mat-sort-header="tips">Tips</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of customers">
+                    <tr *ngFor="let item of sortedData">
                       <td>
                         <div fxLayout="row" fxLayoutAlign="start center">
-                          <div class="name-div" [ngStyle]="{'background-color': item.bgColor}">{{item.name.charAt(0)}}
-                          </div>
                           <div>{{item.name}}</div>
                         </div>
 
@@ -113,10 +257,10 @@
                           </div>
 
                           <div><span><i
-                                class="material-icons blue-text">thumb_up</i></span><span>{{item.businessLike}}</span><span><i
-                                class="material-icons red-text">thumb_down</i></span><span>{{item.businessDislike}}</span><span><i
-                                class="material-icons green-text">message</i></span><span>{{item.businessMessage}}</span><span><i
-                                class="material-icons purple-text">share</i></span><span>{{item.businessShare}}</span>
+                                class="material-icons grey-text">thumb_up</i></span><span>{{item.businessLike}}</span><span><i
+                                class="material-icons grey-text">thumb_down</i></span><span>{{item.businessDislike}}</span><span><i
+                                class="material-icons grey-text">message</i></span><span>{{item.businessMessage}}</span><span><i
+                                class="material-icons grey-text">share</i></span><span>{{item.businessShare}}</span>
                           </div>
                         </div>
 
@@ -137,37 +281,37 @@
                             {{item.therapistDetail}}
                           </div>
                           <div><span><i
-                                class="material-icons blue-text">thumb_up</i></span><span>{{item.therapistLike}}</span><span><i
-                                class="material-icons red-text">thumb_down</i></span><span>{{item.therapistDislike}}</span><span><i
-                                class="material-icons green-text">message</i></span><span>{{item.therapistMessage}}</span><span><i
-                                class="material-icons purple-text">share</i></span><span>{{item.therapistShare}}</span>
+                                class="material-icons grey-text">thumb_up</i></span><span>{{item.therapistLike}}</span><span><i
+                                class="material-icons grey-text">thumb_down</i></span><span>{{item.therapistDislike}}</span><span><i
+                                class="material-icons grey-text">message</i></span><span>{{item.therapistMessage}}</span><span><i
+                                class="material-icons grey-text">share</i></span><span>{{item.therapistShare}}</span>
                           </div>
                         </div>
 
                       </td>
                       <td>
                         <div fxLayout="row" fxLayoutAlign="start center">
-                          <div><i class="material-icons blue-text"
+                          <div><i class="material-icons yellow-text"
                               *ngFor="let dummy of ' '.repeat(item.skill).split(''), let x = index">star</i>
-                            <i class="material-icons blue-text" *ngIf="item.skill  % 1 !== 0">star_half</i>
+                            <i class="material-icons yellow-text" *ngIf="item.skill  % 1 !== 0">star_half</i>
                           </div>
                         </div>
 
                       </td>
                       <td>
                         <div fxLayout="row" fxLayoutAlign="start center">
-                          <div><i class="material-icons blue-text"
+                          <div><i class="material-icons yellow-text"
                               *ngFor="let dummy of ' '.repeat(item.communication).split(''), let x = index">star</i>
-                            <i class="material-icons blue-text" *ngIf="item.communication  % 1 !== 0">star_half</i>
+                            <i class="material-icons yellow-text" *ngIf="item.communication  % 1 !== 0">star_half</i>
                           </div>
                         </div>
 
                       </td>
                       <td>
                         <div fxLayout="row" fxLayoutAlign="start center">
-                          <div><i class="material-icons blue-text"
+                          <div><i class="material-icons yellow-text"
                               *ngFor="let dummy of ' '.repeat(item.attitude).split(''), let x = index">star</i>
-                            <i class="material-icons blue-text" *ngIf="item.attitude  % 1 !== 0">star_half</i>
+                            <i class="material-icons yellow-text" *ngIf="item.attitude  % 1 !== 0">star_half</i>
                           </div>
                         </div>
 
@@ -199,7 +343,7 @@
                       </td>
                     </tr>
                   </tbody>
-                </table>
+                </table> -->
 
               </div>
 
@@ -223,15 +367,7 @@
                 </div>
 
                 <div fxFlex="100" fxFlex.sm="25" fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="20" class="border-block">
-                  <!-- <mat-form-field appearance="fill">
-                  <mat-label>Time Range</mat-label>
-                  <mat-date-range-input [rangePicker]="picker">
-                    <input matInput placeholder="Start date" [(ngModel)]="startDate">
-                    <input matInput placeholder="End date" [(ngModel)]="endDate">
-                  </mat-date-range-input>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-date-range-picker #picker></mat-date-range-picker>
-                </mat-form-field> -->
+
                   <mat-form-field class="width-100" appearance="fill">
                     <mat-label>Choose a date</mat-label>
                     <input matInput [matDatepicker]="picker1" (focus)="picker1.open()">
@@ -253,55 +389,58 @@
                 </div>
               </div>
               <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="30px" fxLayoutGap.xs="0px">
-                <table class="width-100 therapist">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Score</th>
-                      <th>Comment</th>
-                      <th>Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of therapist">
-                      <td>
-                        <div fxLayout="row" fxLayoutAlign="start center">
+                <table mat-table [dataSource]="dataSource2" matSort class="mat-elevation-z8 therapist" *ngIf="tabIndex === 1">
+
+                  <!-- therapistName Column -->
+                  <ng-container matColumnDef="therapistName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                    <td mat-cell *matCellDef="let item">
                           <div>{{item.therapistName}}</div>
+                    </td>
+                    </ng-container>
+
+                  <!-- therapistRate Column -->
+                  <ng-container matColumnDef="therapistRate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Score </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div><i class="material-icons yellow-text"
+                          *ngFor="let dummy of ' '.repeat(item.therapistRate).split(''), let x = index">star</i>
+                        <i class="material-icons yellow-text" *ngIf="item.therapistRate  % 1 !== 0">star_half</i>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- therapistDetail Column -->
+                  <ng-container matColumnDef="therapistDetail">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Comment </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="column" fxLayoutAlign="start start">
+
+                        <div>
+                          {{item.therapistDetail}}
                         </div>
-
-                      </td>
-                      <td>
-                        <div><i class="material-icons yellow-text"
-                            *ngFor="let dummy of ' '.repeat(item.therapistRate).split(''), let x = index">star</i>
-                          <i class="material-icons yellow-text" *ngIf="item.therapistRate  % 1 !== 0">star_half</i>
+                        <div><span><i class="material-icons grey-text">thumb_up</i></span><span>{{item.therapistLike}}</span><span><i
+                              class="material-icons grey-text">thumb_down</i></span><span>{{item.therapistDislike}}</span><span><i
+                              class="material-icons grey-text">message</i></span><span>{{item.therapistMessage}}</span><span><i
+                              class="material-icons grey-text">share</i></span><span>{{item.therapistShare}}</span>
                         </div>
-                      </td>
-                      <td>
-                        <div fxLayout="column" fxLayoutAlign="start start">
+                      </div>
+                    </td>
+                  </ng-container>
 
-                          <div>
-                            {{item.therapistDetail}}
-                          </div>
-                          <div><span><i
-                                class="material-icons blue-text">thumb_up</i></span><span>{{item.therapistLike}}</span><span><i
-                                class="material-icons red-text">thumb_down</i></span><span>{{item.therapistDislike}}</span><span><i
-                                class="material-icons green-text">message</i></span><span>{{item.therapistMessage}}</span><span><i
-                                class="material-icons purple-text">share</i></span><span>{{item.therapistShare}}</span>
-                          </div>
-                        </div>
+                  <!-- submitDate Column -->
+                  <ng-container matColumnDef="submitDate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <div>{{moment(item.submitDate, "MM-DD-YYYY").format("MMM DD YYYY")}}</div>
+                      </div>
+                    </td>
+                  </ng-container>
 
-                      </td>
-
-                      <td>
-                        <div fxLayout="row" fxLayoutAlign="start center">
-                          <div>{{moment(item.submitDate, "MM-DD-YYYY").format("MMM DD YYYY")}}</div>
-                        </div>
-                      </td>
-
-                    </tr>
-                  </tbody>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
                 </table>
-
               </div>
 
             </mat-tab>

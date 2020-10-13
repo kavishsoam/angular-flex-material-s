@@ -43,31 +43,17 @@
 }
 
 .yellow-text {
-  color: yellow;
+  color: orange;
 }
 
-.green-text {
-  color: green;
+.grey-text {
+  color: grey;
   font-size: 17px;
+  margin: 0 5px;
 }
 
-.red-text {
-  color: red;
-  font-size: 17px;
-}
-
-.purple-text {
-  color: purple;
-  font-size: 17px;
-}
-
-.blue-text {
-  color: skyblue;
-  font-size: 17px;
-}
-
-
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 450px),
+(min-device-width: 450px) and (max-device-width: 450px) {
   .p-50 {
     padding: 10px;
   }
@@ -81,19 +67,23 @@
   }
 }
 
-table {
-  th {
-    text-align: left;
+::ng-deep table {
+  width: 100%;
+
+  td.mat-cell {
+    padding: 14px 0;
+  }
+
+  th.mat-sort-header-sorted {
+    color: black;
   }
 }
-
 
 @media only screen and (max-width: 960px),
 (min-device-width: 960px) and (max-device-width: 1024px) {
 
   /* Force table to not be like tables anymore */
   table,
-  thead,
   tbody,
   th,
   td,
@@ -101,47 +91,72 @@ table {
     display: block;
   }
 
-  /* Hide table headers (but not display: none;, for accessibility) */
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
+  ::ng-deep table {
+    tbody {
+      display: block;
+    }
+
+    td.mat-cell:first-of-type,
+    td.mat-footer-cell:first-of-type,
+    th.mat-header-cell:first-of-type {
+      padding-left: 0;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead {
+      display: none;
+    }
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 10px;
+      height: auto !important;
+    }
+
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      // border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+    }
+
+    td.mat-cell {
+      border-bottom-width: 0;
+      border-bottom-style: none;
+      padding: 5px 0;
+    }
+
+    td:before {
+      top: 6px;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      font-weight: bold;
+      float: left;
+    }
+
+    .text-center {
+      text-align: left;
+    }
+
+    td.mat-cell:last-of-type,
+    td.mat-footer-cell:last-of-type,
+    th.mat-header-cell:last-of-type {
+      padding-right: 0;
+    }
+
   }
 
-  tr {
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 10px;
-    margin-bottom: 10px;
-  }
-
-  td {
-    /* Behave  like a "row" */
-    border: none;
-    // border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 50%;
-  }
-
-  td:before {
-    /* Now like a table header */
-    position: absolute;
-    /* Top/left values mimic padding */
-    top: 6px;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-  }
-
-  .text-center {
-    text-align: left;
-  }
-
-  /*
-	Label the data
-  */
   .customer {
 
     td:nth-of-type(1):before {

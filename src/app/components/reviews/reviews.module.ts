@@ -16,6 +16,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSortModule } from '@angular/material/sort';
+import { MatTableModule } from '@angular/material/table';
 
 
 const routes = [
@@ -46,7 +48,9 @@ const routes = [
     MatDialogModule,
     MatCheckboxModule,
     MatOptionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSortModule,
+    MatTableModule
   ],
   declarations: [
     ReviewsComponent

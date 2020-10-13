@@ -1,13 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import * as Moment from 'moment';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
 
 @Component({
   selector: 'app-reviews',
   templateUrl: './reviews.component.html',
   styleUrls: ['./reviews.component.scss']
 })
-export class ReviewsComponent implements OnInit {
+export class ReviewsComponent implements OnInit, AfterViewInit {
   moment: any = Moment;
   location: any;
   locationInTherapist: any;
@@ -53,11 +56,11 @@ export class ReviewsComponent implements OnInit {
       skill: 4,
       communication: 3,
       attitude: 4.5,
-      date: '10/10/2020',
-      serviceName: 'Deep Tissue',
-      duration: 60,
+      date: '10/3/2020',
+      serviceName: 'Deep Tissue 1',
+      duration: 30,
       cost: 100,
-      tips: 5
+      tips: 8
     },
     {
       name: 'Mom Z',
@@ -78,11 +81,11 @@ export class ReviewsComponent implements OnInit {
       skill: 4,
       communication: 3,
       attitude: 2.5,
-      date: '10/10/2020',
-      serviceName: 'Deep Tissue',
-      duration: 60,
+      date: '10/9/2020',
+      serviceName: 'Deep Tissue 3',
+      duration: 50,
       cost: 100,
-      tips: 5
+      tips: 14
     },
     {
       name: 'Bom Z',
@@ -104,7 +107,7 @@ export class ReviewsComponent implements OnInit {
       communication: 2.5,
       attitude: 3.5,
       date: '10/10/2020',
-      serviceName: 'Deep Tissue',
+      serviceName: 'Deep Tissue 2',
       duration: 60,
       cost: 100,
       tips: 5
@@ -124,9 +127,9 @@ export class ReviewsComponent implements OnInit {
     {
       therapistName: 'Jay',
       therapistRate: 3.5,
-      therapistDetail: 'This shop is best',
+      therapistDetail: 'This shop is best 2',
       therapistLike: 3,
-      therapistDislike: 5,
+      therapistDislike: 3,
       therapistMessage: 34,
       therapistShare: 53,
       submitDate: '10/02/2020'
@@ -134,17 +137,17 @@ export class ReviewsComponent implements OnInit {
     {
       therapistName: 'Jay',
       therapistRate: 2.5,
-      therapistDetail: 'This shop is best',
+      therapistDetail: 'This shop is best 5',
       therapistLike: 3,
-      therapistDislike: 5,
+      therapistDislike: 4,
       therapistMessage: 34,
       therapistShare: 53,
       submitDate: '10/02/2020'
     },
     {
-      therapistName: 'Jay',
+      therapistName: 'Sona',
       therapistRate: 4.5,
-      therapistDetail: 'This shop is best',
+      therapistDetail: 'This shop is best 4',
       therapistLike: 3,
       therapistDislike: 5,
       therapistMessage: 34,
@@ -152,9 +155,38 @@ export class ReviewsComponent implements OnInit {
       submitDate: '10/02/2020'
     },
   ]
-  constructor() { }
+  tabIndex = 0;
+
+  displayedColumns: string[] = ['name', 'bussinessRate', 'therapistName', 'therapistRate', 'skill', 'communication', 'attitude', 'date', 'serviceName', 'duration', 'cost', 'tips'];
+  displayedColumns2: string[] = ['therapistName', 'therapistRate', 'therapistDetail', 'submitDate'];
+  dataSource = new MatTableDataSource(this.customers);
+  dataSource2 = new MatTableDataSource(this.therapist);
+
+  @ViewChild(MatSort) sortTable: MatSort;
+  @ViewChild(MatSort) sortTable2: MatSort;
+
+  constructor() {
+  }
 
   ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sortTable;
+    this.dataSource2.sort = this.sortTable2;
+  }
+
+  onTabSelect(e) {
+    this.tabIndex = e;
+    setTimeout(() => {
+      if (e === 1) {
+        this.dataSource2.sort = this.sortTable2;
+
+      } else {
+        this.dataSource.sort = this.sortTable;
+      }
+    }, 1000);
   }
 
   onLocationChange() {
@@ -175,4 +207,5 @@ export class ReviewsComponent implements OnInit {
         break;
     }
   }
+
 }
