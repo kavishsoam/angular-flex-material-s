@@ -86,7 +86,7 @@
 
                   <!-- Bussiness Rating Column -->
                   <ng-container matColumnDef="bussinessRate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Bussiness Rating </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%;"> Bussiness Rating </th>
                     <td mat-cell *matCellDef="let item">
                       <div fxLayout="column" fxLayoutAlign="start start">
                         <div><i class="material-icons yellow-text"
@@ -120,7 +120,7 @@
 
                   <!-- Therapist Rating Column -->
                   <ng-container matColumnDef="therapistRate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Therapist Rating </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%;"> Therapist Rating </th>
                     <td mat-cell *matCellDef="let item">
                       <div fxLayout="column" fxLayoutAlign="start start">
                         <div><i class="material-icons yellow-text"
@@ -386,7 +386,7 @@
                 <div fxFlex="100" fxFlex.sm="25" fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="20" class="border-block">
                   <mat-form-field appearance="outline" class="width-100">
                     <mat-label>Sort</mat-label>
-                    <mat-select name="location" [(ngModel)]="sort">
+                    <mat-select name="sort" [(ngModel)]="sortTherapist">
                       <mat-option *ngFor="let sort of sorts" [value]="sort.value">
                         {{sort.viewValue}}
                       </mat-option>
@@ -418,7 +418,7 @@
 
                   <!-- therapistDetail Column -->
                   <ng-container matColumnDef="therapistDetail">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Comment </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 40%;"> Comment </th>
                     <td mat-cell *matCellDef="let item">
                       <div fxLayout="column" fxLayoutAlign="start start">
 
@@ -449,6 +449,121 @@
                 </table>
               </div>
 
+            </mat-tab>
+            <mat-tab label="Waiting / Approval">
+              <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="30px" fxLayoutGap.xs="0px" fxLayout.xs="column">
+                <div fxFlex="100" fxFlex.sm="25" fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="20" class="border-block">
+                  <mat-form-field appearance="outline" class="width-100">
+                    <mat-label>Location</mat-label>
+                    <mat-select name="location" [(ngModel)]="locationInApprove" (selectionChange)="onLocationChange()" multiple>
+                      <mat-option (click)="toggleAllSelection('location')" [value]="allLocationSelected">All
+                      </mat-option>
+                      <mat-option *ngFor="let location of locations" [value]="location.value">
+                        {{location.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+                <div fxFlex="100" fxFlex.sm="25" fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="20" class="border-block">
+
+                  <mat-form-field class="width-100" appearance="outline">
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepicker]="picker2" (focus)="picker2.open()">
+                    <mat-datepicker-toggle matSuffix [for]="picker2">
+                      <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div fxFlex="100" fxFlex.sm="25" fxFlex.md="25" fxFlex.lg="25" fxFlex.xl="20" class="border-block">
+                  <mat-form-field appearance="outline" class="width-100">
+                    <mat-label>Sort</mat-label>
+                    <mat-select name="sort" [(ngModel)]="sortApprove">
+                      <mat-option *ngFor="let sort of sorts" [value]="sort.value">
+                        {{sort.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayoutAlign="space-between start" fxLayoutGap="30px" fxLayoutGap.xs="0px">
+                <table mat-table [dataSource]="dataSource3" matSort class="mat-elevation-z8 approve" *ngIf="tabIndex === 2">
+
+
+
+                  <!-- therapistName Column -->
+                  <ng-container matColumnDef="therapistName">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Therapist Name </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div>{{item.therapistName}}</div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Customer Name Column -->
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div>{{item.name}}</div>
+                    </td>
+                  </ng-container>
+
+                  <!-- bussinessRate Column -->
+                  <ng-container matColumnDef="bussinessRate">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Stars </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div><i class="material-icons yellow-text"
+                          *ngFor="let dummy of ' '.repeat(item.bussinessRate).split(''), let x = index">star</i>
+                        <i class="material-icons yellow-text" *ngIf="item.bussinessRate  % 1 !== 0">star_half</i>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- businessDetail Column -->
+                  <ng-container matColumnDef="businessDetail">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%;"> Comment </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="column" fxLayoutAlign="start start">
+
+                        <div>
+                          {{item.businessDetail}}
+                        </div>
+                        <div><span><i
+                              class="material-icons pointer grey-text">thumb_up</i></span><span>{{item.businessLike}}</span><span><i
+                              class="material-icons pointer grey-text">thumb_down</i></span><span>{{item.businessDislike}}</span><span><i
+                              class="material-icons pointer grey-text">message</i></span><span>{{item.businessMessage}}</span><span><i
+                              class="material-icons pointer grey-text">share</i></span><span>{{item.businessShare}}</span>
+                        </div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Reply Column -->
+                  <ng-container matColumnDef="replies">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%;"> Reply </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <div>{{item.replies.businessDetail}}</div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <!-- Action Column -->
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action </th>
+                    <td mat-cell *matCellDef="let item">
+                      <div fxLayout="row" fxLayoutAlign="start center">
+                        <div><button mat-raised-button color="primary" style="margin-right: 20px;">Approve</button></div>
+                        <div><button mat-raised-button color="warn">Reject</button></div>
+                      </div>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns3"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns3;"></tr>
+                </table>
+              </div>
             </mat-tab>
           </mat-tab-group>
         </div>

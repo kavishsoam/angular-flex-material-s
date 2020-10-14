@@ -16,9 +16,12 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
   moment: any = Moment;
   location: any;
   locationInTherapist: any;
+  locationInApprove: any;
   staff: any;
   timeRange: any;
   sort: any;
+  sortTherapist: any;
+  sortApprove: any;
   startDate: any;
   endDate: any;
   allLocationSelected = false;
@@ -188,15 +191,81 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
       submitDate: '10/02/2020'
     },
   ]
+
+  waitingApproval = [
+    {
+      name: 'Tom Z',
+      bgColor: 'green',
+      bussinessRate: 3.5,
+      businessDetail: 'This shop is not really good service not good massage',
+      businessLike: 3,
+      businessDislike: 5,
+      businessMessage: 34,
+      businessShare: 53,
+      therapistName: 'Jay',
+      date: '10/6/2020',
+      replies: {
+        businessDetail: 'Thank you so much Tom Z',
+        businessLike: 3,
+        businessDislike: 5,
+        date: '10/4/2020',
+        name: 'Jay',
+        bgColor: 'grey',
+      }
+    },
+    {
+      name: 'Tom Z',
+      bgColor: 'orange',
+      bussinessRate: 4.5,
+      businessDetail: 'This shop is best',
+      businessLike: 3,
+      businessDislike: 5,
+      businessMessage: 34,
+      businessShare: 53,
+      therapistName: 'Jay',
+      date: '10/3/2020',
+      replies: {
+        businessDetail: 'Thank you so much Tom Z',
+        businessLike: 3,
+        businessDislike: 5,
+        date: '10/4/2020',
+        name: 'Jay',
+        bgColor: 'grey',
+      }
+    },
+    {
+      name: 'Tom Z',
+      bgColor: 'blue',
+      bussinessRate: 5,
+      businessDetail: 'This shop is best',
+      businessLike: 3,
+      businessDislike: 5,
+      businessMessage: 34,
+      businessShare: 53,
+      therapistName: 'Jay',
+      date: '10/3/2020',
+      replies: {
+        businessDetail: 'Thank you so much Tom Z',
+        businessLike: 3,
+        businessDislike: 5,
+        date: '10/4/2020',
+        name: 'Jay',
+        bgColor: 'grey',
+      }
+    }
+  ];
   tabIndex = 0;
 
   displayedColumns: string[] = ['name', 'bussinessRate', 'therapistName', 'therapistRate', 'skill', 'communication', 'attitude', 'date', 'serviceName', 'duration', 'cost', 'tips'];
   displayedColumns2: string[] = ['therapistName', 'therapistRate', 'therapistDetail', 'submitDate'];
+  displayedColumns3: string[] = ['therapistName', 'name', 'bussinessRate', 'businessDetail', 'replies', 'action'];
   dataSource = new MatTableDataSource(this.customers);
   dataSource2 = new MatTableDataSource(this.therapist);
+  dataSource3 = new MatTableDataSource(this.waitingApproval);
 
   @ViewChild(MatSort) sortTable: MatSort;
   @ViewChild(MatSort) sortTable2: MatSort;
+  @ViewChild(MatSort) sortTable3: MatSort;
 
   constructor(public dialog: MatDialog) {
   }
@@ -208,6 +277,7 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sortTable;
     this.dataSource2.sort = this.sortTable2;
+    this.dataSource2.sort = this.sortTable3;
   }
 
   onTabSelect(e) {
@@ -215,7 +285,8 @@ export class ReviewsComponent implements OnInit, AfterViewInit {
     setTimeout(() => {
       if (e === 1) {
         this.dataSource2.sort = this.sortTable2;
-
+      } else if (e === 2) {
+        this.dataSource3.sort = this.sortTable3;
       } else {
         this.dataSource.sort = this.sortTable;
       }

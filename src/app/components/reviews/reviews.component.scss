@@ -72,6 +72,7 @@
 }
 
 ::ng-deep .therapist,
+::ng-deep .approve,
 ::ng-deep .customer {
   width: 100%;
 
@@ -97,6 +98,7 @@
   }
 
   ::ng-deep table.therapist,
+  ::ng-deep table.approve,
   ::ng-deep table.customer {
     tbody {
       display: block;
@@ -232,6 +234,29 @@
 
     td:nth-of-type(4):before {
       content: "Date";
+    }
+  }
+
+  .approve {
+
+    td:nth-of-type(1):before {
+      content: "Therapist Name";
+    }
+
+    td:nth-of-type(2):before {
+      content: "Customer Name";
+    }
+
+    td:nth-of-type(3):before {
+      content: "Star";
+    }
+
+    td:nth-of-type(4):before {
+      content: "Comment";
+    }
+
+    td:nth-of-type(5):before {
+      content: "Reply";
     }
   }
 }
