@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'resources', loadChildren: "./components/resources/resources.module#ResourceModule" },
   { path: 'reviews', loadChildren: "./components/reviews/reviews.module#ReviewsModule" },
+  { path: 'clients', loadChildren: "./components/clients/clients.module#ClientsModule" },
 ];
 
 @NgModule({

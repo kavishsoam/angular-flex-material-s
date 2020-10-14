@@ -21,12 +21,12 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ResourceModule } from './components/resources/resources.module';
 import { ReviewsModule } from './components/reviews/reviews.module';
+import { ClientsModule } from './components/clients/clients.module';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent,
-
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +46,8 @@ import { ReviewsModule } from './components/reviews/reviews.module';
     MatDialogModule,
     MatCheckboxModule,
     ResourceModule,
-    ReviewsModule
+    ReviewsModule,
+    ClientsModule
   ],
   providers: [MatDatepickerModule],
   bootstrap: [AppComponent]
