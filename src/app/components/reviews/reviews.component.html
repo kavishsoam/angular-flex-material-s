@@ -80,13 +80,13 @@
                   <ng-container matColumnDef="name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </th>
                     <td mat-cell *matCellDef="let item">
-                      <div>{{item.name}} </div>
+                      <div class="text-center">{{item.name}} </div>
                     </td>
                   </ng-container>
 
                   <!-- Bussiness Rating Column -->
                   <ng-container matColumnDef="bussinessRate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%;"> Bussiness Rating </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%;"> Bussiness Rating </th>
                     <td mat-cell *matCellDef="let item">
                       <div fxLayout="column" fxLayoutAlign="start start">
                         <div><i class="material-icons yellow-text"
@@ -120,7 +120,7 @@
 
                   <!-- Therapist Rating Column -->
                   <ng-container matColumnDef="therapistRate">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 20%;"> Therapist Rating </th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 15%;"> Therapist Rating </th>
                     <td mat-cell *matCellDef="let item">
                       <div fxLayout="column" fxLayoutAlign="start start">
                         <div><i class="material-icons yellow-text"
